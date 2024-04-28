@@ -13,9 +13,14 @@ Le Jeu de la Vie est un modèle mathématique fascinant qui simule l'évolution 
 ## Comment utiliser
 
   Clonez le repository sur votre machine locale.
-  Compilez le code source : `gcc main.c fonctions-vie.c sig-console.c -o main`
-  L'expérience est meilleure en nettoyant la console : `clear`
-  Exécutez l'exécutable généré : `./main`
+  Compilez le code source :
+  	`gcc -o bin/jeu2lavie src/main.c src/sig-console.c src/fonctions-vie.c`
+  
+  L'expérience est meilleure en nettoyant la console :
+  	`clear`
+  
+  Exécutez l'exécutable généré :
+  	`./bin/jeu2lavie`
 
 ## Règles du Jeu de la Vie
 
@@ -33,3 +38,4 @@ Si vous avez des idées pour améliorer le jeu ou corriger des bugs, n'hésitez 
 ## Licence
 
 Ce projet est sous licence MIT. Consultez le fichier LICENSE pour plus de détails.
+
