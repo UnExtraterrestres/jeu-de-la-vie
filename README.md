@@ -30,6 +30,6 @@ Les règles du jeu sont simples :
 
 Si vous avez des idées pour améliorer le jeu ou corriger des bugs, n'hésitez pas à contribuer.
 
-## Licence
+## Licence
 
 Ce projet est sous licence MIT. Consultez le fichier LICENSE pour plus de détails.
