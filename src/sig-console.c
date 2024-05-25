@@ -3,7 +3,7 @@
 #include "sig-console.h"
 
 #define DEFAULT_BG ' '
-#define DEFAULT_FG '#'
+#define DEFAULT_FG 'O'
 
 
 void effacer(struct ecran *self)

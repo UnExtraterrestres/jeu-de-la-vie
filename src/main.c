@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "fonctions-vie.h"
 #include "sig-console.h"
 
@@ -37,10 +38,19 @@ void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
 }
 
 
-int main()
+int main(int argc, char *argv[])
 {
 
-    struct ecran *ecran = ecran_create(132, 43);
+    if (argc != 3) {
+        printf("Usage: %s <width> <height>\n", argv[0]);
+        printf("command to get the terminal size: 'stty size'\n");
+        return 1;
+    }
+
+    int width = atoi(argv[1]);
+    int height = atoi(argv[2]);
+
+    struct ecran *ecran = ecran_create(width, height);
     struct matrice *matrice = matrice_create(ecran->largeur, ecran->hauteur);
 
     // Initialisation de la matrice de cellules
