@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 /**
  * @file fonctions-vie.h
@@ -34,8 +35,9 @@ struct matrice* matrice_create(int largeur, int hauteur);
  * @brief Remplit la matrice avec des valeurs aléatoires (0 ou 1).
  * 
  * @param self Pointeur vers la matrice à remplir.
+ * @param seed Graine d'initialisation pour le générateur de pseudo-aléatoire
  */
-void make_random_matrice(struct matrice *self);
+void make_random_matrice(struct matrice *self, long int seed);
 
 /**
  * @brief Libère la mémoire allouée pour une matrice.

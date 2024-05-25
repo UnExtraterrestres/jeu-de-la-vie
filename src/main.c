@@ -41,20 +41,27 @@ void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
 int main(int argc, char *argv[])
 {
 
-    if (argc != 3) {
-        printf("Usage: %s <width> <height>\n", argv[0]);
-        printf("command to get the terminal size: 'stty size'\n");
+    if (argc < 3)
+    {
+        printf("Usage: %s <SCREEN_WIDTH> <SCREEN_HEIGHT> (<SEED>)\n", argv[0]);
+        printf("Command to get the terminal size: 'stty size'\n");
         return 1;
     }
 
     int width = atoi(argv[1]);
     int height = atoi(argv[2]);
 
+    long int seed = width*height;
+    if (argc >= 4)
+    {
+        seed = atoi(argv[3]);
+    }
+
     struct ecran *ecran = ecran_create(width, height);
     struct matrice *matrice = matrice_create(ecran->largeur, ecran->hauteur);
 
     // Initialisation de la matrice de cellules
-    make_random_matrice(matrice);
+    make_random_matrice(matrice, seed);
 
     // Boucle principale du jeu de la vie
     while (3301)

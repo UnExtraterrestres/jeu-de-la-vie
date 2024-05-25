@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "fonctions-vie.h"
 
 
@@ -25,9 +26,11 @@ struct matrice* matrice_create(int largeur, int hauteur)
     return res;
 }
 
-void make_random_matrice(struct matrice *self)
+void make_random_matrice(struct matrice *self, long int seed)
 {
     
+    srand(seed);
+
     for (int y=0; y<self->hauteur; ++y)
     {
         for (int x=0; x<self->largeur; ++x)
