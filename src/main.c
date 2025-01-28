@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
     if (argc < 3)
     {
-        printf("Usage: %s <SCREEN_WIDTH> <SCREEN_HEIGHT> (<SEED>)\n", argv[0]);
+        printf("Usage: %s SCREEN_WIDTH SCREEN_HEIGHT [SEED]\n", argv[0]);
         printf("Command to get the terminal size: 'stty size'\n");
         return 1;
     }

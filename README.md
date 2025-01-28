@@ -13,14 +13,14 @@ Le Jeu de la Vie est un modèle mathématique fascinant qui simule l'évolution 
 ## Comment utiliser
 
   Clonez le repository sur votre machine locale.
-  Compilez le code source :
-  	`gcc -o bin/jeu2lavie src/main.c src/sig-console.c src/fonctions-vie.c`
+  Construisez l'executable :
+    `make`
   
   L'expérience est meilleure en nettoyant la console :
   	`clear`
   
   Exécutez l'exécutable généré :
-  	`./bin/jeu2lavie <TERMINAL_WIDTH> <TERMINAL_HEIGHT> (<SEED>)`
+  	`./bin/jeu2lavie TERMINAL_WIDTH TERMINAL_HEIGHT [SEED]`
 
 ## Règles du Jeu de la Vie
 

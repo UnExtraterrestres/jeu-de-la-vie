@@ -1,6 +1,7 @@
 # Fichiers d'exécution
-/bin/
+bin/
 
 # Fichiers de compilation
+obj/
 *.o
 *.out
