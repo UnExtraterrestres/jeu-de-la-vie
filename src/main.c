@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "fonctions-vie.h"
 #include "sig-console.h"
+#include "exec.h"
 
 
 void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
@@ -37,6 +38,15 @@ void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
     afficher(ecran);
 }
 
+int get_screen_width()
+{
+    // tput cols
+}
+
+int get_screen_height()
+{
+    // tput lines
+}
 
 int main(int argc, char *argv[])
 {

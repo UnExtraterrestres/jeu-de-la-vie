@@ -5,3 +5,6 @@ bin/
 obj/
 *.o
 *.out
+
+# TODO
+TODO
