@@ -1,8 +1,9 @@
+#define _DEFAULT_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "fonctions-vie.h"
 #include "sig-console.h"
-#include "exec.h"
 
 
 void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
@@ -40,31 +41,58 @@ void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
 
 int get_screen_width()
 {
-    // tput cols
+
+    FILE *fp;
+    char path[1035];
+    int width = 0;
+
+    fp = popen("tput cols", "r");
+    if (fp == NULL) {
+        perror("popen");
+        exit(EXIT_FAILURE);
+    }
+
+    if (fgets(path, sizeof(path)-1, fp) != NULL) {
+        width = atoi(path);
+    }
+
+    pclose(fp);
+
+    return width;
 }
 
 int get_screen_height()
 {
-    // tput lines
+
+    FILE *fp;
+    char path[1035];
+    int height = 0;
+
+    fp = popen("tput lines", "r");
+    if (fp == NULL) {
+        perror("popen");
+        exit(EXIT_FAILURE);
+    }
+
+    if (fgets(path, sizeof(path)-1, fp) != NULL) {
+        height = atoi(path);
+    }
+
+    pclose(fp);
+
+    return height;
 }
 
 int main(int argc, char *argv[])
 {
 
-    if (argc < 3)
-    {
-        printf("Usage: %s SCREEN_WIDTH SCREEN_HEIGHT [SEED]\n", argv[0]);
-        printf("Command to get the terminal size: 'stty size'\n");
-        return 1;
-    }
-
-    int width = atoi(argv[1]);
-    int height = atoi(argv[2]);
+    int width = get_screen_width();
+    int height = get_screen_height();
 
     long int seed = width*height;
-    if (argc >= 4)
+    if (argc >= 2)
     {
-        seed = atoi(argv[3]);
+        seed = atoi(argv[1]);
     }
 
     struct ecran *ecran = ecran_create(width, height);
