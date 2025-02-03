@@ -39,50 +39,6 @@ void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
     afficher(ecran);
 }
 
-int get_screen_width()
-{
-
-    FILE *fp;
-    char path[1035];
-    int width = 0;
-
-    fp = popen("tput cols", "r");
-    if (fp == NULL) {
-        perror("popen");
-        exit(EXIT_FAILURE);
-    }
-
-    if (fgets(path, sizeof(path)-1, fp) != NULL) {
-        width = atoi(path);
-    }
-
-    pclose(fp);
-
-    return width;
-}
-
-int get_screen_height()
-{
-
-    FILE *fp;
-    char path[1035];
-    int height = 0;
-
-    fp = popen("tput lines", "r");
-    if (fp == NULL) {
-        perror("popen");
-        exit(EXIT_FAILURE);
-    }
-
-    if (fgets(path, sizeof(path)-1, fp) != NULL) {
-        height = atoi(path);
-    }
-
-    pclose(fp);
-
-    return height;
-}
-
 int main(int argc, char *argv[])
 {
 

@@ -1,3 +1,5 @@
+#define _DEFAULT_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "sig-console.h"
@@ -127,4 +129,51 @@ void retirer_pixel_from(struct ecran *self, double x, double y)
 	retirer_pixel(self, tmp);
 
 	free_pixel(tmp);
+}
+
+int get_screen_side(char side_choice)
+{
+
+	if (side_choice != 'w' && side_choice != 'h')
+	{
+		return -1;
+	}
+
+	FILE *fp;
+	char path[1035];
+	int side = -1;
+
+	if (side_choice == 'w')
+	{
+		fp = popen("tput cols", "r");
+	} else
+	{
+		fp = popen("tput lines", "r");
+	}
+
+	if (fp == NULL)
+	{
+		perror("popen");
+		exit(EXIT_FAILURE);
+	}
+
+	if (fgets(path, sizeof(path)-1, fp) != NULL) {
+        side = atoi(path);
+    }
+
+    pclose(fp);
+
+    return side;
+}
+
+int get_screen_width()
+{
+
+    return get_screen_side('w');
+}
+
+int get_screen_height()
+{
+
+   return get_screen_side('h');
 }

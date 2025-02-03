@@ -119,5 +119,8 @@ void retirer_pixel(struct ecran *ecran, struct pixel *pixel);
  */
 void retirer_pixel_from(struct ecran *ecran, double x, double y);
 
+int get_screen_width();
+int get_screen_height();
+
 #endif /* SIGCONSOLE_H */
 // Path: sig-console.c
