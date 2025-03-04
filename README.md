@@ -20,7 +20,7 @@ Le Jeu de la Vie est un modèle mathématique fascinant qui simule l'évolution 
   	`clear`
   
   Exécutez l'exécutable généré :
-  	`./bin/jeu2lavie TERMINAL_WIDTH TERMINAL_HEIGHT [SEED]`
+  	`./bin/jeu2lavie [SEED]`
 
 ## Règles du Jeu de la Vie
 
