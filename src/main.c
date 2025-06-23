@@ -2,11 +2,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "fonctions-vie.h"
 #include "sig-console.h"
 
+#define DEFAULT_CAMERA_BG 'c'
 
-void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
+void afficher_matrice(struct ecran *ecran, struct matrice *matrice, struct camera *cam)
 {
 
     /**
@@ -23,6 +25,12 @@ void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
      * @param matrice Un pointeur vers la structure matrice qui contient les données à afficher.
     */
 
+    if (NULL == ecran || NULL == matrice || NULL == cam)
+    {
+        fprintf(stderr, "Error: afficher_matrice NULL args.\n");
+        return;
+    }
+
     for (int y=0; y<matrice->hauteur; ++y)
     {
         for (int x=0; x<matrice->largeur; ++x)
@@ -36,7 +44,8 @@ void afficher_matrice(struct ecran *ecran, struct matrice *matrice)
         }
     }
 
-    afficher(ecran);
+    afficher_cam_pov(ecran, cam);
+    // afficher(ecran);
 }
 
 int main(int argc, char *argv[])
@@ -54,6 +63,12 @@ int main(int argc, char *argv[])
     struct ecran *ecran = ecran_create(width, height);
     struct matrice *matrice = matrice_create(ecran->largeur, ecran->hauteur);
 
+    struct camera *cam = camera_create();
+    // int cam_width = width / 2;
+    // int cam_height = height / 2;
+
+    // struct camera *cam = camera_create_from(cam_width, cam_height, 10, 10, DEFAULT_CAMERA_BG, 0.0, 0.0);
+
     // Initialisation de la matrice de cellules
     make_random_matrice(matrice, seed);
 
@@ -61,13 +76,15 @@ int main(int argc, char *argv[])
     while (3301)
     {
         update(matrice);
-        afficher_matrice(ecran, matrice);
+        // move_pcamera(cam, 1, 0);
+        afficher_matrice(ecran, matrice, cam);
 
         // attente pour le prochain tour
         // Ctrl+C pour quitter
         getchar();
     }
 
+    camera_free(cam);
     free_matrice(matrice);
     free_ecran(ecran);
 
