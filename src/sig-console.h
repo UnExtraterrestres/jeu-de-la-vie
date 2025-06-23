@@ -6,6 +6,9 @@
  * @brief Fichier d'en-tête contenant les déclarations pour la gestion d'une interface console.
  */
 
+int get_screen_width();
+int get_screen_height();
+
 /**
  * @struct ecran
  * @brief Structure représentant un écran console.
@@ -119,8 +122,120 @@ void retirer_pixel(struct ecran *ecran, struct pixel *pixel);
  */
 void retirer_pixel_from(struct ecran *ecran, double x, double y);
 
-int get_screen_width();
-int get_screen_height();
+/**
+ * @struct camera
+ * @brief Structure représentant une camera.
+ */
+struct camera
+{
+    int largeur; /**< Largeur de la camera. */
+    int hauteur; /**< Hauteur de la camera. */
+    int tx;      /**< abscisse de la camera dans le terminal. */
+    int ty;      /**< ordonnée de la camera dans le terminal. */
+    char fond;
+
+    double x;    /**< abscisse de la camera dans le plan. */
+    double y;    /**< ordonnée de la camera dans le plan. */
+};  // /!\ toujours les coordonnées du coin supérieur gauche du rectangle de la camera
+
+/**
+ * @brief Créer une nouvelle camera à partir des paramètres spécifiés
+ *
+ * @param largeur Largeur de la camera
+ * @param hauteur Hauteur de la camera
+ * @param tx Abscisse de la camera dans le terminal
+ * @param ty Ordonnée de la camera dans le terminal
+ * @param fond Fond de la camera
+ * @param x Abscisse de la camera dans le plan
+ * @param y Ordonnée de la camera dans le plan
+ */
+struct camera* camera_create_from(int largeur, int hauteur, int tx, int ty, char fond, double x, double y);
+
+/**
+ * @brief Créer une nouvelle camera en récupérant par défaut les dimensions de la console
+ */
+struct camera* camera_create();
+
+/**
+ * @brief Libère la mémoire allouée pour une camera.
+ * 
+ * @param self Pointeur vers la camera à libérer.
+ */
+void camera_free(struct camera *self);
+
+/**
+ * @brief Renvois si le pixel se trouve dans la camera ou non
+ *
+ * @param x Abscisse à vérifier
+ * @param y Ordonnée à vérifier
+ * @param cam Camera en question
+ */
+int is_on_cam(double x, double y, struct camera *cam);
+
+/**
+ * @brief Renvois si le pixel se trouve dans la camera ou non
+ *      appel is_on_cam
+ * @param pxl Pixel en question
+ * @param cam Camera en question
+ */
+int is_pxl_on_cam(struct pixel *pxl, struct camera *cam);
+
+/**
+ * @brief Renvois si un pixel du terminal, par la vue de la camera
+ *      ce retrouve sur l'image
+ *
+ * @param x Abscisse à vérifier
+ * @param y Ordonnée à vérifier
+ * @param ecr Ecran en question
+ */
+int is_on_screen(int x, int y, struct ecran *ecr);
+
+/**
+ * @brief Renvois si un pixel du terminal, par la vue de la camera
+ *      ce retrouve sur l'image
+ * @param pxl Pixel en question
+ * @param cam Camera en question
+ * @param ecr Ecran en question
+ */
+int is_pxl_on_screen(struct pixel *pxl, struct camera *cam, struct ecran *ecr);
+
+/**
+ * @brief Affiche le contenu d'un écran passant dans la vue de la camera.
+ * 
+ * @param self Pointeur vers l'écran à afficher.
+ * @param cam Pointeur vers la camera
+ */
+void afficher_cam_pov(struct ecran *self, struct camera *cam);
+
+/**
+ * @brief Déplace la caméra dans le terminal
+ *
+ * @param cam Pointeur vers la caméra en question
+ * @param dx delta en abscisse
+ * @param dy delta en ordonnée
+ * @return -1 en cas d'échec, 0 sinon
+ */
+int move_tcamera(struct camera *cam, int dx, int dy);
+
+/**
+ * @brief Déplace la caméra dans le plan
+ *
+ * @param cam Pointeur vers la caméra en question
+ * @param dx delta en abscisse
+ * @param dy delta en ordonnée
+ * @return -1 en cas d'échec, 0 sinon
+ */
+int move_pcamera(struct camera *cam, double dx, double dy);
+
+/**
+ * @brief Augmente la caméra dans le terminal
+ *
+ * @param cam Pointeur vers la caméra en question
+ * @param dx delta en largeur
+ * @param dy delta en hauteur
+ * @return -1 en cas d'échec, 0 sinon
+ */
+int grow_tcamera(struct camera *cam, int dx, int dy);
 
 #endif /* SIGCONSOLE_H */
 // Path: sig-console.c
